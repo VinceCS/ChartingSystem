@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Maui.ChartingSystem"
+             x:Class="Maui.ChartingSystem.MainPage"
+             NavigatedTo="ContentPage_NavigatedTo">
+
+    <VerticalStackLayout Padding="30,0" Spacing="25">
+
+        <Label Text="Medical Charting System"
+               FontSize="28"
+               HorizontalOptions="Center"/>
+
+        <Grid ColumnDefinitions="8*,2*">
+            <Entry Grid.Column="0"
+                   Placeholder="Search patients"
+                   Text="{Binding Query}" />
+            <Button Grid.Column="1"
+                    Text="Search"
+                    Clicked="SearchClicked" />
+        </Grid>
+
+        <Button Text="Add Patient"
+                Clicked="AddPatient"
+                BackgroundColor="LightGreen"
+                TextColor="Black"
+                HorizontalOptions="Center"
+                WidthRequest="150" />
+
+        <ListView ItemsSource="{Binding Patients}"
+                  SelectedItem="{Binding SelectedPatient}"
+                  HasUnevenRows="True">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid ColumnDefinitions="6*,Auto,30,Auto"
+                              Padding="5">
+
+                            <Label Grid.Column="0"
+                                   Text="{Binding Model.Display}" />
+
+                            <Button Grid.Column="1"
+                                    Text="Edit"
+                                    Command="{Binding EditCommand}"
+                                    CommandParameter="{Binding}" />
+
+                            <Button Grid.Column="3"
+                                    Text="Delete"
+                                    TextColor="White"
+                                    BackgroundColor="Red"
+                                    Command="{Binding DeleteCommand}"
+                                    CommandParameter="{Binding}" />
+
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
+
+        <Button Text="+"
+                Clicked="ExpandCardClicked"
+                WidthRequest="50"
+                HorizontalOptions="Center" />
+
+        <Grid IsVisible="{Binding InlineCardVisibility}">
+            <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+
+                <Label Grid.Row="0" Text="Name"/>
+                <Entry Grid.Row="0" Grid.Column="1" Text="{Binding InlinePatient.Model.Name}"/>
+
+                <Label Grid.Row="1" Text="Address"/>
+                <Entry Grid.Row="1" Grid.Column="1" Text="{Binding InlinePatient.Model.Address}"/>
+
+                <Label Grid.Row="2" Text="Birthdate"/>
+                <Entry Grid.Row="2" Grid.Column="1" Text="{Binding InlinePatient.Model.Birthdate}"/>
+
+                <Label Grid.Row="3" Text="Race"/>
+                <Entry Grid.Row="3" Grid.Column="1" Text="{Binding InlinePatient.Model.Race}"/>
+
+                <Label Grid.Row="4" Text="Gender"/>
+                <Entry Grid.Row="4" Grid.Column="1" Text="{Binding InlinePatient.Model.Gender}"/>
+
+                <Label Grid.Row="5" Text="Medical"/>
+                <Entry Grid.Row="5" Grid.Column="1" Text="{Binding InlinePatient.Model.Medical}"/>
+
+                <Button Grid.Row="6"
+                        Text="Add"
+                        BackgroundColor="LightGreen"
+                        Clicked="InlineAddClicked" />
+            </Grid>
+        </Grid>
+
+    </VerticalStackLayout>
+</ContentPage>
